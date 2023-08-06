@@ -43,10 +43,10 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TodoList $todolist)
+    public function show(TodoList $todo_list)
     {
         //$list = TodoList::findOrFail($id);
-        return response($todolist);
+        return response($todo_list);
     }
 
     /**
@@ -56,11 +56,11 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TodoList $list)
+    public function update(Request $request, TodoList $todo_list)
     {
         $data = $request->validate(['name' => 'required']);
-        $list->update($data);
-        return $list;
+        $todo_list->update($data);
+        return $todo_list;
     }
 
     /**
