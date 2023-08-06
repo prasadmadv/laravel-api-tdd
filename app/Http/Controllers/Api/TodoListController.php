@@ -27,7 +27,9 @@ class TodoListController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate(['name' => 'required', 'category' => 'required']);
+
+        //$data = $request->all();
         $list = TodoList::create($data);
         if(!empty($list)){
             return response()->json($list, 201);
@@ -54,9 +56,11 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TodoList $list)
     {
-        //
+        $data = $request->validate(['name' => 'required']);
+        $list->update($data);
+        return $list;
     }
 
     /**
@@ -67,6 +71,10 @@ class TodoListController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //dd($todolist);
+        TodoList::find($id)->delete();
+        return response('', 204);
     }
+
+
 }
